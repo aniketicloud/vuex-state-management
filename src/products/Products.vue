@@ -27,6 +27,7 @@
 
 <script>
 import filterProducts from "./filter-products";
+import { SET_PRODUCT_FILTER } from "../store/mutation-types";
 
 export default {
   name: "Products",
@@ -37,12 +38,12 @@ export default {
   },
   methods: {
     setFilter(filter) {
-      this.filter = filter;
+      this.$store.commit(SET_PRODUCT_FILTER, filter);
     }
   },
   computed: {
     visibleProducts() {
-      return filterProducts(this.filter, this.$store.state.products);
+      return this.$store.getters.getFilteredProducts;
     }
   }
 };

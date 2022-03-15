@@ -1,10 +1,12 @@
 import { createStore } from "vuex";
-import { SET_USER } from "./mutation-types";
+import { SET_USER, SET_PRODUCT_FILTER } from "./mutation-types";
+import filterProducts from "../products/filter-products";
 
 const store = createStore({
   state() {
     return {
       user: null,
+      productFilter: null,
       products: [
         {
           id: "24ab7b14-f935-44c1-b91b-8598123ea54a",
@@ -52,9 +54,17 @@ const store = createStore({
       ]
     };
   },
+  getters: {
+    getFilteredProducts(state, getters) {
+      return filterProducts(state.productFilter, state.products);
+    }
+  },
   mutations: {
     [SET_USER](state, user) {
       state.user = user;
+    },
+    [SET_PRODUCT_FILTER](state, filter) {
+      state.productFilter = filter;
     }
   }
 });
