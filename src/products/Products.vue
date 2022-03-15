@@ -18,7 +18,7 @@
         </div>
         <div class="price-buy">
           <span class="price">${{ product.price.toFixed(2) }}</span>
-          <span><button class="primary buy">Buy</button></span>
+          <span><button class="primary buy" @click="addToCart(product)">Buy</button></span>
         </div>
       </div>
     </div>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { SET_CART_ITEMS } from '../store/mutation-types';
 export default {
   name: "Products",
   data() {
@@ -36,6 +37,9 @@ export default {
   methods: {
     setFilter(filter) {
       this.filter = filter;
+    },
+    addToCart(product) {
+      this.$store.commit(SET_CART_ITEMS, product)
     }
   },
   computed: {
